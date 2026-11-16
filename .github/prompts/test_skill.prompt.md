@@ -1,3 +1,9 @@
+---
+name: test_skill
+agent: agent
+description: Prueba el skill agentic-loop corrigiendo slugify() en slug.py hasta que check.py pase
+---
+
 # Prueba del skill agentic-loop en GitHub Copilot (VS Code)
 
 ## Preparación
