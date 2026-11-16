@@ -1,0 +1,25 @@
+{
+  "loop_id": "",
+  "titulo": "",
+  "creado": "",
+  "estado": "preflight",
+  "salida": null,
+  "iteracion_actual": -1,
+  "limites": {
+    "max_iteraciones": 10,
+    "max_estancamiento": 3,
+    "max_repeticiones_error": 3,
+    "max_subagentes_paralelos": 3,
+    "max_minutos": null
+  },
+  "criterios": [],
+  "contador_estancamiento": 0,
+  "errores_vistos": {},
+  "indicador_secundario": null,
+  "historial_metricas": [],
+  "hecho": [],
+  "pendiente": [],
+  "hipotesis_descartadas": [],
+  "decisiones": [],
+  "iteraciones": []
+}
