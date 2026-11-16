@@ -1,35 +1,25 @@
-# skill_loops
+# Proyecto de prueba de `agentic-loop`
 
-Skill `agentic-loop` para agentes de IA (GitHub Copilot, Claude, etc.) y un proyecto de prueba para validarlo.
+Fixture para validar el skill [agentic-loop](../.github/skills/agentic-loop/SKILL.md): un `slugify()` con 5 defectos que el loop debe corregir uno por iteración.
 
-## Qué es
+## Contenido
 
-`agentic-loop` ejecuta ciclos agénticos iterativos hasta cumplir un objetivo verificable (por ejemplo, que pasen los tests). Define objetivo, criterios de éxito, límites y salvaguardas; orquesta subagentes (planificador, ejecutores, verificador) y registra cada iteración en `loops/`.
+| Fichero | Qué es |
+|---|---|
+| `slug.py` | `slugify()` con defectos (acentos, grupos de guiones, guiones en los extremos, recorte, resultado vacío). Es lo que el loop modifica. |
+| `check.py` | Comprobador de 10 casos. No se modifica. Imprime `n/10` y sale con código 0 solo si pasan todos. |
 
-Documentación completa: [.github/skills/agentic-loop/SKILL.md](.github/skills/agentic-loop/SKILL.md).
+## Ejecutar la prueba
 
-## Estructura
+1. Abre la **raíz del repo** en VS Code, con Copilot Chat en modo Agent.
+2. Comprueba el estado inicial: `cd test && python check.py` → `4/10`, código de salida 1.
+3. Lanza el prompt `/test_skill` ([.github/prompts/test_skill.prompt.md](../.github/prompts/test_skill.prompt.md)); incluye la checklist de qué comprobar al terminar.
+4. Resultado esperado: `python check.py` → `10/10`, código 0, `check.py` sin modificar, y un registro en `loops/<fecha>-<slug>/` (en la raíz del repo, ignorado por git) con `loop.md`, `state.json`, una carpeta por iteración y `report.md`.
 
-```
-.github/skills/agentic-loop/
-├── SKILL.md        # protocolo del skill
-├── scripts/loop.py # estado y límites del loop (init, contadores, timestamps)
-├── assets/         # plantillas de loop, estado, entrada, log e informe
-└── references/     # registro y subagentes
-check.py            # comprobador de slugify() (no modificar)
-slug.py             # función slugify() con defectos a corregir
-PROMPT.md           # prompt y checklist de la prueba
-```
+## Volver a empezar
 
-## Prueba del skill
-
-1. Abre el proyecto en VS Code con Copilot Chat en modo Agent.
-2. Estado inicial: `python check.py` devuelve `4/10` y código de salida 1.
-3. Pega el prompt de [PROMPT.md](PROMPT.md).
-4. Resultado esperado: `python check.py` devuelve `10/10` (código 0) y se genera `loops/<fecha>-<slug>/` con `loop.md`, `state.json`, una carpeta por iteración y `report.md`.
-
-## Uso de `loop.py`
+`slug.py` debe estar en su versión con defectos para que la prueba sea repetible. Después de una ejecución:
 
 ```bash
-python .github/skills/agentic-loop/scripts/loop.py init --title "Objetivo corto" --max-iter 10 --stall 3
+git restore test/slug.py
 ```
