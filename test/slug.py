@@ -1,3 +1,6 @@
+import unicodedata
+
+
 def slugify(texto, max_len=20):
     """Convierte un texto en un slug para URLs.
 
@@ -8,8 +11,13 @@ def slugify(texto, max_len=20):
     - longitud máxima max_len; tras recortar no puede quedar un "-" al final
     - si el resultado queda vacío, devuelve "n-a"
     """
-    s = texto.lower()
+    s = unicodedata.normalize("NFKD", texto.lower())
+    s = "".join(c for c in s if not unicodedata.combining(c))
     out = ""
     for c in s:
-        out += c if c.isalnum() else "-"
-    return out[:max_len]
+        if c.isalnum():
+            out += c
+        elif not out.endswith("-"):
+            out += "-"
+    out = out.strip("-")
+    return out[:max_len].rstrip("-") or "n-a"
