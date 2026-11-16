@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Registros generados por el skill agentic-loop
+loops/
+
+# Windows
+*:Zone.Identifier
+Thumbs.db
+Desktop.ini
+
+# Editor / SO
+.DS_Store
+.idea/
